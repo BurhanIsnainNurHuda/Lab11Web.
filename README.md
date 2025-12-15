@@ -541,3 +541,17 @@ Hasil: Langsung redirect ke halaman login ✅
 
 Screenshot: Redirect ke login
 <img width="1918" height="946" alt="image" src="https://github.com/user-attachments/assets/0804920c-0c24-4067-a5d6-6784579d6d6c" />
+
+Test 2: Login dengan admin/admin123
+    
+Masuk ke halaman login
+
+Isi username: `admin`, password: `admin123`
+
+Hasil: Berhasil login, redirect ke artikel ✅
+
+Screenshot: Login Success
+<img width="1919" height="939" alt="image" src="https://github.com/user-attachments/assets/10ef2370-f4ac-4b78-a6b2-
+    c747d75f46df" />
+    <img width="1919" height="947" alt="image" src="https://github.com/user-attachments/assets/a83e864a-677c-45b7-a197-07ebfc5d3b12" />
+
