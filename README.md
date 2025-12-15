@@ -577,3 +577,60 @@ Ubah password: ✅ Bisa dengan hashing
 
 Screenshot: Profile Page
 <img width="1919" height="949" alt="image" src="https://github.com/user-attachments/assets/20c19aef-a01b-4b9c-9d4e-dd9430de862d" />
+
+Test 5: Logout
+Klik logout
+
+Hasil: Session terhapus, kembali ke login ✅
+
+<img width="1919" height="951" alt="image" src="https://github.com/user-attachments/assets/9cf0bcee-6808-4d8c-8f89-f05ee1c57886" />
+
+11. Kendala & Solusi
+    
+Kendala 1: .htaccess gak jalan
+Problem: URL masih muncul `index.php?`
+Solusi: Cek Apache `mod_rewrite` aktif, dan di `httpd.conf` setting `AllowOverride All`
+
+Kendala 2: Session hilang setelah redirect
+Problem: Session gak nempel
+Solusi: Pastikan `session_start()` dipanggil SEBELUM ada output HTML
+
+Kendala 3: Password verify gagal
+Problem: Password admin123 gak bisa login
+Solusi: Pastikan di database passwordnya udah di-hash pake `password_hash()`, bukan plain text
+
+12. Kesimpulan
+Yang berhasil dibuat:
+✅ Framework modular dengan routing clean URL
+
+✅ Class Database untuk handle semua query
+
+✅ Sistem login dengan session & password hashing
+
+✅ CRUD artikel lengkap
+
+✅ Halaman profil + ubah password (tugas)
+
+✅ Template Bootstrap yang responsive
+
+Yang dipelajari:
+
+Cara bikin aplikasi PHP yang terstruktur
+
+Pake OOP buat bikin class reusable
+
+Cara kerja session buat login
+
+Routing biar URL rapi
+
+Password security dengan hashing
+
+Yang bisa ditambahin:
+
+Validasi form lebih ketat
+
+Upload gambar buat artikel
+
+Pagination kalo data banyak
+
+Role-based access (admin vs user biasa)
