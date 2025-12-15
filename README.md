@@ -530,3 +530,14 @@ Footer (template/footer.php)
     </script>
     </body>
     </html>
+
+### 10. Testing & Screenshot
+
+Test 1: Akses tanpa login
+
+Buka `http://localhost/lab11_php_oop/artikel/index`
+
+Hasil: Langsung redirect ke halaman login ✅
+
+Screenshot: Redirect ke login
+<img width="1918" height="946" alt="image" src="https://github.com/user-attachments/assets/0804920c-0c24-4067-a5d6-6784579d6d6c" />
