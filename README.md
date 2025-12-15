@@ -209,6 +209,49 @@ List Artikel (module/artikel/index.php)
     <?php endif; ?>
     </table>
 
+Form Tambah Artikel (module/artikel/tambah.php)
+
+     <h2>Tambah Artikel Baru</h2>
+
+    <?php
+    $db = new Database();
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $data = [
+        'judul' => $_POST['judul'],
+        'isi' => $_POST['isi'],
+        'tanggal' => $_POST['tanggal'],
+        'penulis' => $_SESSION['nama'] // ambil dari session login
+    ];
+    
+    if($db->insert('artikel', $data)) {
+        echo '<div class="alert alert-success">Artikel berhasil disimpan!</div>';
+        echo '<script>setTimeout(() => location.href="../artikel/index", 2000)</script>';
+    } else {
+        echo '<div class="alert alert-danger">Gagal menyimpan!</div>';
+    }
+    }
+    ?>
+
+    <form method="POST">
+    <div class="mb-3">
+        <label>Judul Artikel</label>
+        <input type="text" name="judul" class="form-control" required>
+    </div>
+    
+    <div class="mb-3">
+        <label>Tanggal</label>
+        <input type="date" name="tanggal" class="form-control" required>
+    </div>
+    
+    <div class="mb-3">
+        <label>Isi Artikel</label>
+        <textarea name="isi" class="form-control" rows="5" required></textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Simpan Artikel</button>
+    <a href="../artikel/index" class="btn btn-secondary">Kembali</a>
+    </form>
     <?php
     // Handle delete
     if(isset($_GET['hapus'])) {
