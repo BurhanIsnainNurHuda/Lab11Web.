@@ -445,3 +445,68 @@ Logout (module/user/logout.php)
         </div>
     </div>
     </div>
+
+### 9. Template
+
+Header (template/header.php)
+
+    <!DOCTYPE html>
+    <html lang="id">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP OOP Framework</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding-top: 20px; background-color: #f8f9fa; }
+        .navbar { margin-bottom: 30px; }
+    </style>
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../home/index">
+                <b>PHP OOP Framework</b>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../home/index">Home</a>
+                    </li>
+                    
+                    <?php if(isset($_SESSION['is_login'])): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../artikel/index">Artikel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../user/profile">Profil</a>
+                    </li>
+                    <?php endif; ?>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <?php if(isset($_SESSION['is_login'])): ?>
+                    <li class="nav-item">
+                        <span class="nav-link text-white">
+                            Hi, <?= $_SESSION['nama'] ?>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../user/logout">Logout</a>
+                    </li>
+                    <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../user/login">Login</a>
+                    </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
