@@ -117,3 +117,102 @@ Ini jantungnya sistem, semua request diarahkan ke sini:
 
     include "template/footer.php";
     ?>
+
+#### 5. Class Database
+
+Ini class buat handle semua operasi database:
+
+    class Database {
+    private $conn;
+    
+    public function __construct() {
+        // Koneksi ke database
+        include "config.php";
+        $this->conn = new mysqli(
+            $config['host'], 
+            $config['username'], 
+            $config['password'], 
+            $config['db_name']
+        );
+    }
+    
+    // SELECT data
+    public function getAll($table) {
+        $result = $this->conn->query("SELECT * FROM $table");
+        $data = [];
+        while($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+    
+    // INSERT data
+    public function insert($table, $data) {
+        $columns = implode(",", array_keys($data));
+        $values = "'" . implode("','", array_values($data)) . "'";
+        $sql = "INSERT INTO $table ($columns) VALUES ($values)";
+        return $this->conn->query($sql);
+    }
+    
+    // UPDATE data
+    public function update($table, $data, $where) {
+        $set = [];
+        foreach($data as $key => $value) {
+            $set[] = "$key='$value'";
+        }
+        $set = implode(",", $set);
+        $sql = "UPDATE $table SET $set WHERE $where";
+        return $this->conn->query($sql);
+    }
+    
+    // DELETE data
+    public function delete($table, $where) {
+        return $this->conn->query("DELETE FROM $table WHERE $where");
+    }
+    }
+
+### 6. Modul Artikel (CRUD)
+
+List Artikel (module/artikel/index.php)
+
+    <?php
+    $db = new Database();
+    $artikel = $db->getAll('artikel');
+     ?>
+
+    <h2>Daftar Artikel</h2>
+    <a href="../artikel/tambah" class="btn btn-primary mb-3">Tambah Baru</a>
+
+    <table class="table table-bordered">
+    <tr class="table-dark">
+        <th>No</th>
+        <th>Judul</th>
+        <th>Tanggal</th>
+        <th>Aksi</th>
+    </tr>
+    
+    <?php if(empty($artikel)): ?>
+        <tr><td colspan="4" class="text-center">Belum ada artikel</td></tr>
+    <?php else: ?>
+        <?php $no = 1; foreach($artikel as $a): ?>
+        <tr>
+            <td><?= $no++ ?></td>
+            <td><?= $a['judul'] ?></td>
+            <td><?= $a['tanggal'] ?></td>
+            <td>
+                <a href="../artikel/ubah/<?= $a['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                <a href="?hapus=<?= $a['id'] ?>" class="btn btn-sm btn-danger" 
+                   onclick="return confirm('Yakin hapus?')">Hapus</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    </table>
+
+    <?php
+    // Handle delete
+    if(isset($_GET['hapus'])) {
+    $db->delete('artikel', "id=".$_GET['hapus']);
+    echo "<script>alert('Data terhapus!'); location.href='../artikel/index';</script>";
+    }
+    ?>
