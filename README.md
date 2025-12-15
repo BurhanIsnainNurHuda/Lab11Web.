@@ -510,3 +510,23 @@ Header (template/header.php)
     </nav>
     
     <div class="container">
+
+Footer (template/footer.php)
+
+
+    </div> <!-- end container -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Auto hide alert setelah 5 detik
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.style.transition = 'opacity 0.5s';
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 5000);
+    </script>
+    </body>
+    </html>
