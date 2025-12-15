@@ -259,3 +259,189 @@ Form Tambah Artikel (module/artikel/tambah.php)
     echo "<script>alert('Data terhapus!'); location.href='../artikel/index';</script>";
     }
     ?>
+
+#### 7. Sistem Login
+
+Login Page (module/user/login.php)
+
+    <?php
+    // Kalo udah login, langsung redirect
+    if(isset($_SESSION['is_login'])) {
+    header('Location: ../home/index');
+    exit;
+    }
+
+    $error = "";
+
+      // Proses login kalo ada POST
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $db = new Database();
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    
+    // Cari user di database
+    $sql = "SELECT * FROM users WHERE username='$username' LIMIT 1";
+    $result = $db->query($sql);
+    $user = $result->fetch_assoc();
+    
+    // Cocokin password pake password_verify()
+    if($user && password_verify($password, $user['password'])) {
+        // Set session
+        $_SESSION['is_login'] = true;
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['nama'] = $user['nama'];
+        
+        // Redirect ke halaman artikel
+        header('Location: ../artikel/index');
+        exit;
+    } else {
+        $error = "Username atau password salah!";
+     }
+    }
+    ?>
+
+    <div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card mt-5">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Login System</h4>
+            </div>
+            <div class="card-body">
+                <?php if($error): ?>
+                    <div class="alert alert-danger"><?= $error ?></div>
+                <?php endif; ?>
+                
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>Username</label>
+                        <input type="text" name="username" class="form-control" required 
+                               placeholder="Masukkan username">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" required 
+                               placeholder="Masukkan password">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+                
+                <div class="mt-3 text-center">
+                    <small class="text-muted">
+                        Demo: admin / admin123
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+Logout (module/user/logout.php)
+
+    <?php
+    // Hapus semua session
+    session_destroy();
+    // Redirect ke login
+    header('Location: ../user/login');
+    exit;
+    ?>
+
+### 8. Halaman Profil (Tugas)
+
+    <?php
+    $db = new Database();
+    $user_id = $_SESSION['user_id'];
+    $user = $db->get('users', "id=$user_id");
+
+    $pesan = "";
+
+    // Update profil
+    if(isset($_POST['update_profil'])) {
+    $data = [
+        'nama' => $_POST['nama'],
+        'email' => $_POST['email']
+    ];
+    
+    if($db->update('users', $data, "id=$user_id")) {
+        $_SESSION['nama'] = $_POST['nama']; // update session
+        $pesan = "Profil berhasil diupdate!";
+        $user = $db->get('users', "id=$user_id"); // refresh data
+    }
+     }
+
+    // Ubah password
+    if(isset($_POST['ubah_password'])) {
+    $pass_baru = $_POST['password_baru'];
+    $konfirmasi = $_POST['konfirmasi_password'];
+    
+    if($pass_baru != $konfirmasi) {
+        $pesan = "Password tidak cocok!";
+    } else {
+        // Hash password baru
+        $hash_baru = password_hash($pass_baru, PASSWORD_DEFAULT);
+        $db->update('users', ['password' => $hash_baru], "id=$user_id");
+        $pesan = "Password berhasil diubah!";
+    }
+    }
+    ?>
+
+    <h2>Profil User</h2>
+
+    <?php if($pesan): ?>
+    <div class="alert alert-info"><?= $pesan ?></div>
+    <?php endif; ?>
+
+    <div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Data Profil</div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="update_profil" value="1">
+                    
+                    <div class="mb-3">
+                        <label>Username</label>
+                        <input type="text" class="form-control" value="<?= $user['username'] ?>" readonly>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Nama Lengkap</label>
+                        <input type="text" name="nama" class="form-control" value="<?= $user['nama'] ?>" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" value="<?= $user['email'] ?>">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Update Profil</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Ubah Password</div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="hidden" name="ubah_password" value="1">
+                    
+                    <div class="mb-3">
+                        <label>Password Baru</label>
+                        <input type="password" name="password_baru" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label>Konfirmasi Password</label>
+                        <input type="password" name="konfirmasi_password" class="form-control" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-warning">Ubah Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
