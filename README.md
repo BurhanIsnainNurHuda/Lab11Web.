@@ -1,5 +1,8 @@
 # Lab11Web.
 
+MOTTO HARI INI:
+"Gak usah perfectionist, yang penting work dan ngerti konsepnya"
+
     Nama: Burhan Isnain Nur Huda  
     NIM: 312410226  
     Kelas: TI.24.A.2  
