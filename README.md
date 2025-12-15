@@ -59,3 +59,27 @@ Bikin database dulu di phpMyAdmin:
     VALUES ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrator');
 
 Password `admin123` udah di-hash pake `password_hash()` biar aman.
+
+### 4. File Penting
+
+a. config.php
+
+    php
+    <?php
+    $config = [
+    'host' => 'localhost',
+    'username' => 'root',
+    'password' => '',  // biasanya kosong kalo pake XAMPP
+    'db_name' => 'latihan_oop'
+    ];
+    ?>
+
+b. .htaccess
+
+Buat biar URL bisa clean (nggak pake `index.php?page=...`):
+
+    RewriteEngine On
+    RewriteBase /lab11_php_oop/
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php/$1 [L]
