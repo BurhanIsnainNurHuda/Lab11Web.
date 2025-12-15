@@ -62,7 +62,7 @@ Password `admin123` udah di-hash pake `password_hash()` biar aman.
 
 ### 4. File Penting
 
-a. config.php
+### a. config.php
 
     php
     <?php
@@ -74,7 +74,7 @@ a. config.php
     ];
     ?>
 
-b. .htaccess
+### b. .htaccess
 
 Buat biar URL bisa clean (nggak pake `index.php?page=...`):
 
@@ -83,3 +83,37 @@ Buat biar URL bisa clean (nggak pake `index.php?page=...`):
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php/$1 [L]
+
+### c. index.php (ROUTER)
+
+Ini jantungnya sistem, semua request diarahkan ke sini:
+
+    <?php
+    session_start();
+    include "class/Database.php";
+    // Ambil URL, misal: /artikel/tambah
+    $path = $_SERVER['PATH_INFO'] ?? '/home/index';
+    // Pisah jadi modul dan action
+    $segments = explode('/', trim($path, '/'));
+    $mod = $segments[0] ?? 'home';  // contoh: 'artikel'
+    $page = $segments[1] ?? 'index'; // contoh: 'tambah'
+    // Cek login kalo mau akses halaman terproteksi
+    $public_pages = ['home', 'user']; // halaman yg bisa diakses tanpa login
+    if (!in_array($mod, $public_pages) && !isset($_SESSION['is_login'])) {
+    header('Location: /lab11_php_oop/user/login');
+    exit();
+    }
+
+    // Load template
+    include "template/header.php";
+
+    // Load halaman sesuai modul
+     $file = "module/{$mod}/{$page}.php";
+    if (file_exists($file)) {
+    include $file;
+    } else {
+    echo "Halaman gak ketemu bro!";
+      }
+
+    include "template/footer.php";
+    ?>
