@@ -552,7 +552,28 @@ Hasil: Berhasil login, redirect ke artikel ✅
 
 Screenshot: Login Success
 
+<img width="1919" height="891" alt="image" src="https://github.com/user-attachments/assets/4ce5179d-ab95-442f-bd91-18a044affcfc" />
+
 <img width="1919" height="934" alt="image" src="https://github.com/user-attachments/assets/9e5682eb-b202-44a5-af4e-0dc7a9e09d73" />
     
  <img width="1919" height="947" alt="image" src="https://github.com/user-attachments/assets/a83e864a-677c-45b7-a197-07ebfc5d3b12" />
 
+Test 3: CRUD Artikel
+
+Tambah artikel: ✅ Bisa
+
+Edit artikel: ✅ Bisa
+
+Hapus artikel: ✅ Bisa dengan konfirmasi
+
+Screenshot: List Artikel
+<img width="1915" height="942" alt="image" src="https://github.com/user-attachments/assets/6c255c0b-1071-4ab2-9de8-246d4bd17636" />
+
+Test 4: Halaman Profil (Tugas)
+
+Update nama & email: ✅ Bisa
+
+Ubah password: ✅ Bisa dengan hashing
+
+Screenshot: Profile Page
+<img width="1919" height="949" alt="image" src="https://github.com/user-attachments/assets/20c19aef-a01b-4b9c-9d4e-dd9430de862d" />
