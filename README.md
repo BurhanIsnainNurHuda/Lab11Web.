@@ -7,7 +7,7 @@ MOTTO HARI INI:
     NIM: 312410226  
     Kelas: TI.24.A.2  
     Mata Kuliah: Pemrograman Web 1
-    Laporan Praktikum 10: PHP OOP
+    Laporan Praktikum 11 & 12: PHP OOP
 
 ### LAPORAN PRAKTIKUM 11 & 12
 
