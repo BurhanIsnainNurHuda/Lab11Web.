@@ -553,10 +553,6 @@ Hasil: Berhasil login, redirect ke artikel ✅
 Screenshot: Login Success
 
 <img width="1919" height="934" alt="image" src="https://github.com/user-attachments/assets/9e5682eb-b202-44a5-af4e-0dc7a9e09d73" />
-
-
-<img width="1919" height="939" alt="image" src="https://github.com/user-attachments/assets/10ef2370-f4ac-4b78-a6b2-
-    c747d75f46df" />
     
  <img width="1919" height="947" alt="image" src="https://github.com/user-attachments/assets/a83e864a-677c-45b7-a197-07ebfc5d3b12" />
 
